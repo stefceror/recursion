@@ -16,8 +16,20 @@ var stringifyJSON = function(obj) {
 			}
 			strJSON = strJSON + "]";
 			return strJSON;
+			
 		} else if (typeof obj ==='object'){
-			return "object";
+			strJSON = strJSON + "{";
+			for(var name in obj) {
+				if(name !== 'functions' && name !== 'undefined'){
+					strJSON = strJSON + stringifyJSON(name) + ':' + stringifyJSON(obj[name]) + ",";
+				}
+			}
+			if(strJSON.length !== 1){
+
+				strJSON = strJSON.slice(0, strJSON.length-1);
+			}
+			strJSON = strJSON + "}";
+			return strJSON;
 		
 		}
 	}
